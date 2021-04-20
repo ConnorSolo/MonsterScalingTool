@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"
+charset="UTF-8">
+<head>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Mono&display=swap" rel="stylesheet">
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  white-space: nowrap;
+  background-color: #121212;
+}
+
+/* The default layout is mobile friendly, for portrait phones */
+
+/* Largest parent element. Child elements are arranged top to bottom */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 95%;
+  margin: 0 auto;
+  padding: 1%;
+  background-color: #1e1e1e;
+  border-radius: 10px;
+}
+
+.header {
+  width: 100%;
+}
+
+/* This div will be the container for 2 elements on each row
+Child elements are arranged from left to right. */
+.row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.row .row {
+  display: flex;
+  justify-content: center;
+}
+
+.row-vertical {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.row-vertical .row {
+  display: flex;
+  justify-content: center;
+}
+
+/* These boxes be the smallest elements, holding a single input/output each*/
+.box-left {
+  padding: 1vw;
+  text-align: left;
+  min-width: 39%;
+}
+
+.box-left span {
+  color: #fa3d05;
+  font-weight: bold;
+}
+
+.box-left-condensed {
+    padding: 1vw;
+    text-align: center;
+}
+
+.box-left-condensed span {
+  font-family: 'Roboto Mono', monospace;
+  color: #fa3d05;
+  font-weight: bold;
+}
+
+.box-mid {
+  padding: 1vw;
+  width: 25%;
+}
+
+.box-mid input {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  font-size: 3vw;
+  background-color: #303030;
+  color: white;
+}
+
+.box-mid-condensed {
+  padding: 1vw 1vw 1vw 0px;
+  width: 14vw;
+}
+
+.box-mid-condensed input {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  font-size: 3vw;
+  background-color: #303030;
+  color: white;
+}
+
+.box-right {
+  padding: 1vw;
+  text-align: center;
+  min-width: 25%;
+}
+
+.box-right-condensed {
+  padding: 1vw 1vw 1vw 0px;
+  text-align: center;
+  min-width: 7vw;
+}
+
+.box-head1 {
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+  text-align: center;
+}
+
+.box-head2 {
+  padding: 1vw;
+  padding-left: 0px;
+  text-align: center;
+  min-width: 25%;
+}
+
+.button-scale {
+  width: 100%;
+}
+
+.button-scale input {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 4vw;
+  width: 100%;
+  color: #fff;
+  border: none;
+  padding: 1vw;
+  margin-bottom: 1vw
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+.scale {
+  background-color: #14AF18;
+  border-radius: 2vw;
+}
+
+h1 {
+  text-align: center;
+  font-size: 5vw;
+  color: white;
+}
+
+h2 {
+  font-size: 3vw;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+span {
+  font-size: 3vw;
+  color: white;
+}
+
+select {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 3vw;
+  background-color: #303030;
+  color: white;
+  border-radius: 5px;
+  transition: box-shadow linear 0.5s;
+}
+
+select:focus {
+  outline: none;
+  border-color: #ed7575;
+  box-shadow: 0 0 10px #ed7575;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+}
+
+input {
+  border: 1px solid #dadada;
+  border-radius: 5px;
+  transition: box-shadow linear 0.5s;
+  text-align: center;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ed7575;
+  box-shadow: 0 0 10px #ed7575;
+}
+
+button {
+  font-size: 2.625vw;
+  font-weight: bold;
+  border-radius: 0.8vw;
+  color: white;
+  background-color: #ff4000;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  font-size: 3vw;
+  color: #fa3d05;
+  font-weight: bold;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 44vw;
+  background-color: #303F9F;
+  color: #fff;
+  font-size: 2.25vw;
+  font-weight: normal;
+  text-align: center;
+  padding: 1.5vw;
+  border-radius: 1vw;
+  white-space: normal;
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: -5vw;
+}
+
+/* Create a tooltip arrow */
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 75%;
+  border-width: 1vw;
+  border-style: solid;
+  border-color: #303F9F transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+/* A Collapsible section for advanced features */
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  background-color: #303030;
+  color: #fa3d05;
+  cursor: pointer;
+  padding: 1vw;
+  width: 100%;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 2.625vw;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active
+class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.collapsible:after {
+  /*content: '\002B';*/
+  color: #fa3d05;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+/*.active:after {
+  content: "\2212";
+}*/
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  white-space: normal;
+  color: white;
+  width: 100%;
+  padding: 0 1vw;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: transparent;
+}
+
+.content .span {
+  font-size: 2.625vw;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 10vw; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  color: white;
+  background-color: #303030;
+  margin: auto;
+  padding: 0;
+  border: 1px solid black;
+  width: 80%;
+  box-shadow: 0 .4vw .8vw 0 rgba(0,0,0,0.2),0 .6vw 2vw 0 rgba(0,0,0,0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-100vw; opacity:0}
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-100vw; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 5vw;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+  padding: 0.5vw 1.6vw;
+  background-color: #f44336;
+  color: white;
+}
+
+.modal-body {
+  white-space: normal;
+  padding: 0.5vw 1.6vw;
+}
+
+.modal-body p {
+  font-size: 2.75vw;
+}
+
+.modal-footer {
+  padding: 0.5vw 1.6vw;
+  background-color: #f44336;
+  color: white;
+}
+
+/*Medium devices (tablets, 768px and up)*/
+@media screen and (min-width: 768px) {
+  .container {
+    height: 100%;
+    width: 66%;
+    margin: auto;
+  }
+
+  .box-mid input {
+    font-size: 2vw;
+  }
+
+  .box-mid-condensed {
+  width: 9.25vw;
+  }
+
+  .box-right-condensed {
+  width: 9.25vw;
+  }
+
+  .box-mid-condensed input {
+      font-size: 2vw;
+  }
+
+  .button-scale {
+    width: 100%;
+  }
+
+  .button-scale input {
+    font-size: 2.64vw;
+  }
+
+  h1 {
+    font-size: 3.3vw;
+  }
+
+  h2 {
+    font-size: 2vw;
+  }
+
+  span {
+    font-size: 2vw;
+  }
+
+  select {
+    font-size: 2vw;
+  }
+
+  img {
+    width: 25%;
+  }
+
+  button {
+    font-size: 1.75vw;
+  }
+
+  .tooltip {
+    font-size: 2vw;
+  }
+
+  .tooltip .tooltiptext {
+    font-size: 1.5vw;
+
+    padding: 1vw;
+    /* Position the tooltip text */
+    left: -18vw;
+  }
+
+  .tooltip .tooltiptext::after {
+    top: 100%;
+    right: 50%;
+  }
+
+  .collapsible {
+    font-size: 1.75vw;
+  }
+
+  .content .span {
+    font-size: 1.75vw;
+  }
+
+  .modal-body p {
+    font-size: 2vw;
+  }
+}
+
+/*Extra large devices (large desktops, 1200px and up)*/
+@media screen and (min-width: 1200px) {
+  .container {
+    height: 100%;
+    width: 50%;
+    margin: auto;
+  }
+
+  .box-mid input {
+    font-size: 1.5vw;
+  }
+
+  .box-mid-condensed {
+  width: 7vw;
+  }
+
+  .box-right-condensed {
+  width: 7vw;
+  }
+
+  .box-mid-condensed input {
+      font-size: 1.5vw;
+  }
+
+  .button-scale {
+    width: 100%;
+  }
+
+  .button-scale input {
+    font-size: 2vw;
+  }
+
+  h1 {
+    font-size: 2.5vw;
+  }
+
+  h2 {
+    font-size: 1.5vw;
+  }
+
+  span {
+    font-size: 1.5vw;
+  }
+
+  select {
+    font-size: 1.5vw;
+  }
+
+  img {
+    width: 12.5%;
+  }
+
+  button {
+    font-size: 1.25vw;
+  }
+
+  .tooltip {
+    font-size: 1.5vw;
+  }
+
+  .tooltip .tooltiptext {
+    font-size: 1.125vw;
+    width: 25vw;
+    padding: 1vw;
+    /* Position the tooltip text */
+    top: -50%;
+    left: -26.5vw;
+    bottom: auto;
+  }
+
+  .tooltip .tooltiptext::after {
+    top: 1vw;
+    right: auto;
+    left: 100%;
+    border-color: transparent transparent transparent #303F9F;
+  }
+
+  .collapsible {
+    font-size: 1.25vw;
+  }
+
+  .content .span {
+    font-size: 1.25vw;
+  }
+
+  .modal-body p {
+    font-size: 1.5vw;
+  }
+}
+
+</style>
+</head>
+
+  <body>
+    <img src="/static/d20.webp" alt="D20 Icon">
+    <div class="container">
+      <div class="header">
+        <title>5E Monster Scaling Tool</title>
+        <h1>5E Monster Scaling Tool</h1>
+        <hr color="#d60000">
+      </div>
+      <form method="post" action="." autocomplete="off">
+        <!-- Column Title Row -->
+        <div class="row">
+          <div class="box-left">
+          </div>
+          <div class="box-head1">
+            <h2>Starting Stats</h2>
+          </div>
+          <div class="box-head2">
+            <h2>Scaled Stats</h2>
+          </div>
+        </div>
+        <!-- Challenge Rating Row -->
+        <div class="row">
+          <div class="box-left">
+            <div class="tooltip">Challenge Rating
+              <span class="tooltiptext">
+                A monster's challenge rating tells you how great a threat the
+                monster is. An appropriately equipped and well-rested party of
+                four adventurers should be able to defeat a monster that has a
+                challenge rating equal to its level without suffering any deaths.
+              </span>
+            </div>
+          </div>
+          <div class="box-mid">
+            <select id="cr1" name="cr1">
+              <option value="0" {% if cr1 == "0" %} selected {% endif %}>0
+              <option value="0.125" {% if cr1 == "0.125" %} selected {% endif %}>1/8
+              <option value="0.25" {% if cr1 == "0.25" %} selected {% endif %}>1/4
+              <option value="0.5" {% if cr1 == "0.5" %} selected {% endif %}>1/2
+              <option value="1" {% if cr1 == "1" %} selected {% endif %}>1
+              <option value="2" {% if cr1 == "2" %} selected {% endif %}>2
+              <option value="3" {% if cr1 == "3" %} selected {% endif %}>3
+              <option value="4" {% if cr1 == "4" %} selected {% endif %}>4
+              <option value="5" {% if cr1 == "5" %} selected {% endif %}>5
+              <option value="6" {% if cr1 == "6" %} selected {% endif %}>6
+              <option value="7" {% if cr1 == "7" %} selected {% endif %}>7
+              <option value="8" {% if cr1 == "8" %} selected {% endif %}>8
+              <option value="9" {% if cr1 == "9" %} selected {% endif %}>9
+              <option value="10" {% if cr1 == "10" %} selected {% endif %}>10
+              <option value="11" {% if cr1 == "11" %} selected {% endif %}>11
+              <option value="12" {% if cr1 == "12" %} selected {% endif %}>12
+              <option value="13" {% if cr1 == "13" %} selected {% endif %}>13
+              <option value="14" {% if cr1 == "14" %} selected {% endif %}>14
+              <option value="15" {% if cr1 == "15" %} selected {% endif %}>15
+              <option value="16" {% if cr1 == "16" %} selected {% endif %}>16
+              <option value="17" {% if cr1 == "17" %} selected {% endif %}>17
+              <option value="18" {% if cr1 == "18" %} selected {% endif %}>18
+              <option value="19" {% if cr1 == "19" %} selected {% endif %}>19
+              <option value="20" {% if cr1 == "20" %} selected {% endif %}>20
+              <option value="21" {% if cr1 == "21" %} selected {% endif %}>21
+              <option value="22" {% if cr1 == "22" %} selected {% endif %}>22
+              <option value="23" {% if cr1 == "23" %} selected {% endif %}>23
+              <option value="24" {% if cr1 == "24" %} selected {% endif %}>24
+              <option value="25" {% if cr1 == "25" %} selected {% endif %}>25
+              <option value="26" {% if cr1 == "26" %} selected {% endif %}>26
+              <option value="27" {% if cr1 == "27" %} selected {% endif %}>27
+              <option value="28" {% if cr1 == "28" %} selected {% endif %}>28
+              <option value="29" {% if cr1 == "29" %} selected {% endif %}>29
+              <option value="30" {% if cr1 == "30" %} selected {% endif %}>30
+            </select>
+          </div>
+          <div class="box-right">
+            <select id="cr2" name="cr2">
+              <option value="0" {% if cr2 == "0" %} selected {% endif %}>0
+              <option value="0.125" {% if cr2 == "0.125" %} selected {% endif %}>1/8
+              <option value="0.25" {% if cr2 == "0.25" %} selected {% endif %}>1/4
+              <option value="0.5" {% if cr2 == "0.5" %} selected {% endif %}>1/2
+              <option value="1" {% if cr2 == "1" %} selected {% endif %}>1
+              <option value="2" {% if cr2 == "2" %} selected {% endif %}>2
+              <option value="3" {% if cr2 == "3" %} selected {% endif %}>3
+              <option value="4" {% if cr2 == "4" %} selected {% endif %}>4
+              <option value="5" {% if cr2 == "5" %} selected {% endif %}>5
+              <option value="6" {% if cr2 == "6" %} selected {% endif %}>6
+              <option value="7" {% if cr2 == "7" %} selected {% endif %}>7
+              <option value="8" {% if cr2 == "8" %} selected {% endif %}>8
+              <option value="9" {% if cr2 == "9" %} selected {% endif %}>9
+              <option value="10" {% if cr2 == "10" %} selected {% endif %}>10
+              <option value="11" {% if cr2 == "11" %} selected {% endif %}>11
+              <option value="12" {% if cr2 == "12" %} selected {% endif %}>12
+              <option value="13" {% if cr2 == "13" %} selected {% endif %}>13
+              <option value="14" {% if cr2 == "14" %} selected {% endif %}>14
+              <option value="15" {% if cr2 == "15" %} selected {% endif %}>15
+              <option value="16" {% if cr2 == "16" %} selected {% endif %}>16
+              <option value="17" {% if cr2 == "17" %} selected {% endif %}>17
+              <option value="18" {% if cr2 == "18" %} selected {% endif %}>18
+              <option value="19" {% if cr2 == "19" %} selected {% endif %}>19
+              <option value="20" {% if cr2 == "20" %} selected {% endif %}>20
+              <option value="21" {% if cr2 == "21" %} selected {% endif %}>21
+              <option value="22" {% if cr2 == "22" %} selected {% endif %}>22
+              <option value="23" {% if cr2 == "23" %} selected {% endif %}>23
+              <option value="24" {% if cr2 == "24" %} selected {% endif %}>24
+              <option value="25" {% if cr2 == "25" %} selected {% endif %}>25
+              <option value="26" {% if cr2 == "26" %} selected {% endif %}>26
+              <option value="27" {% if cr2 == "27" %} selected {% endif %}>27
+              <option value="28" {% if cr2 == "28" %} selected {% endif %}>28
+              <option value="29" {% if cr2 == "29" %} selected {% endif %}>29
+              <option value="30" {% if cr2 == "30" %} selected {% endif %}>30
+            </select>
+          </div>
+        </div>
+        <!-- Proficiency Bonus Row -->
+        <div class="row" style="background-color:#303030">
+          <div class="box-left">
+            <div class="tooltip">Proficiency Bonus
+              <span class="tooltiptext">
+                A monster's proficiency score is a reflection of their general
+                skill level in and out of combat. It is directly tied to their
+                challenge rating. If this field is left blank, it will
+                automatically be filled by the appropriate value for the
+                selected CR.
+              </span>
+            </div>
+          </div>
+          <div class="box-mid">
+            <input name="pb" type="number" step="any" min="0" placeholder="2"
+            {% if pb != "0" %}
+              value={{pb}}
+            {% endif %}
+            />
+          </div>
+          <div class="box-right">
+            {% if outputs[0] == 0 %}
+              <span> - </span>
+            {% else %}
+              <span>{{ outputs[0] }}</span>
+            {% endif %}
+          </div>
+        </div>
+        <!-- Armor Class Row -->
+        <div class="row">
+          <div class="box-left">
+            <div class="tooltip">Armor Class
+              <span class="tooltiptext">
+                A monster that wears armor or carries a shield has an Armor
+                Class (AC) that takes its armor, shield, and Dexterity into
+                account. Otherwise, a monster's AC is based on its Dexterity
+                modifier and natural armor, if any. If a monster has natural
+                armor, wears armor, or carries a shield, this is noted in
+                parentheses after its AC value.
+              </span>
+            </div>
+          </div>
+          <div class="box-mid">
+            <input name="ac" type="number" step="any" min="0" placeholder="13"
+            {% if ac != "0" %}
+              value={{ac}}
+            {% endif %}
+            />
+          </div>
+          <div class="box-right">
+            {% if outputs[1] == 0 %}
+              <span> - </span>
+            {% else %}
+              <span>{{ outputs[1] }}</span>
+            {% endif %}
+          </div>
+        </div>
+        <!-- Hit Points Row -->
+        <div class="row" style="background-color:#303030">
+          <div class="box-left">
+            <div class="tooltip">Hit Points
+              <span class="tooltiptext">
+                A monster's hit points are presented as both a die expression
+                and as an average number. A monster's size determines the hit
+                dice used to calculate its hit points.
+              </span>
+            </div>
+          </div>
+          <div class="box-mid">
+            <input name="hp" type="number" step="any" min="0" placeholder="100"
+            {% if hp != "0" %}
+              value={{hp}}
+            {% endif %}
+            />
+          </div>
+          <div class="box-right">
+            {% if outputs[2] == 0 %}
+              <span> - </span>
+            {% else %}
+              <span>{{ outputs[2] }}</span>
+            {% endif %}
+          </div>
+        </div>
+        <!-- Attack Bonus Row -->
+        <div class="row">
+          <div class="box-left">
+            <div class="tooltip">Attack Bonus
+              <span class="tooltiptext">
+                  Monster attack rolls use a d20 and add their proficiency bonus
+                  and the appropriate ability modifier. These can be spell
+                  attacks or weapon attacks. If a monster has varying attack
+                  bonuses, use the highest.
+              </span>
+            </div>
+          </div>
+          <div class="box-mid">
+            <input name="ab" type="number" step="any" min="0" placeholder="3"
+            {% if ab != "0" %}
+              value={{ab}}
+            {% endif %}
+            />
+          </div>
+          <div class="box-right">
+            {% if outputs[3] == 0 %}
+              <span> - </span>
+            {% else %}
+              <span>{{ outputs[3] }}</span>
+            {% endif %}
+          </div>
+        </div>
+        <!-- Damage/Round Row -->
+        <div class="row" style="background-color:#303030">
+          <div class="box-left">
+            <div class="tooltip">Damage/Round
+              <span class="tooltiptext">
+                Take the average damage a monster deals with each of its attacks
+                in a round and add them together. If it has different attack
+                options, use its most effective attacks. If its damage output
+                varies from round to round, calculate its damage each round for
+                the first three rounds of combat, and take the average. Include
+                any off-turn damage-dealing features, such as reactions,
+                legendary actions, or lair actions.
+              </span>
+            </div>
+          </div>
+          <div class="box-mid">
+            <input name="dpr" type="number" step="any" min="0" placeholder="20"
+            {% if dpr != "0" %}
+              value={{dpr}}
+            {% endif %}
+            />
+          </div>
+          <div class="box-right">
+            {% if outputs[4] == 0 %}
+              <span> - </span>
+            {% else %}
+              <span>{{ outputs[4] }}</span>
+            {% endif %}
+          </div>
+        </div>
+        <!-- Save DC Row -->
+        <div class="row">
+          <div class="box-left">
+            <div class="tooltip">Save DC
+              <span class="tooltiptext">
+                A monster might have an attack or some other trait that requires
+                a target to make a saving throw. The DC might be an arbitrary
+                value appropriate for its challenge rating or it might be the
+                product of the following formula: 8 + the monster's proficiency
+                bonus + the monster's relevant ability modifier.
+              </span>
+            </div>
+          </div>
+          <div class="box-mid">
+            <input name="dc" type="number" step="any" min="0" placeholder="13"
+            {% if dc != "0" %}
+              value={{dc}}
+            {% endif %}
+            />
+          </div>
+          <div class="box-right">
+            {% if outputs[5] == 0 %}
+              <span> - </span>
+            {% else %}
+              <span>{{ outputs[5] }}</span>
+            {% endif %}
+          </div>
+        </div>
+        <!-- Ability Scores Collapsible Row -->
+        <div class="row-vertical">
+          <button class="collapsible" type="button">Ability Scores & HP Formula (Experimental)</button>
+          <div class="content">
+            <span>These features are still experimental and may not always work
+            as intended. Always double check the results for accuracy. For
+            details on how these features work and how to use them, click the
+            Help button.
+            </span>
+            <br>
+            <!-- Trigger/Open The Modal -->
+            <div class="row" style="justify-content:flex-end">
+              <button id="myBtn" type="button">Help?</button>
+            </div>
+
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+
+              <!-- Modal content -->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <span class="close">&times;</span>
+                  <h1>How does it work?</h1>
+                </div>
+                <div class="modal-body">
+                  <h2>Ability Score Scaling</h2>
+                  <p>The Ability Score Scaling feature will automatically try to
+                  detect which ability score the monster uses as its primary attack
+                  stat and scale it up or down based on the target CR. It does this
+                  by checking which ability score modifier plus the proficiency
+                  bonus is equal to the attack bonus. However, if the monster
+                  happens to have other ability scores that have the same modifier
+                  as its primary attack stat, those will accidentally get scaled as
+                  well with this current version of the tool.</p>
+                  <p>Note: In order to work properly, the proficiency bonus and
+                  attack bonus fields can not be left empty.</p>
+                  <p>The tool will also automatically scale the monster's
+                  Constitution score up or down independent of the other scores.
+                  Unfortunately, Wizards of the Coast has not revealed if there is
+                  a specific formula they use to determine a monster's ability
+                  scores, so I performed some regression analysis on the official
+                  monsters they've made and came up with an equation that pretty
+                  closely models the relatively linear relationship between CR and
+                  Constitution score (thanks to
+                  <a href="https://www.reddit.com/r/UnearthedArcana/comments/8zvr6s/the_great_dd5e_monster_spreadsheet/">
+                  u/RufflesDMAccount</a> on reddit for putting together an amazing
+                  spreadsheet).</p>
+                  <p>Note: At the moment, only the monster's primary attack stat and
+                  Constitution score will be scaled. It's other stats will remain
+                  the same regardless of CR.</p>
+                  <h2>HP Die Expression</h2>
+                  <p>If you are the type of person who prefers to roll monster HP,
+                  you can use the HP Die Expression feature. By taking into account
+                  the Constitution score of the monster and what size hit die it
+                  uses, it will generate a proportionately scaled die expression
+                  that is as close to the scaled HP value as possible.</p>
+                  <p>Note: A monster's size determines what hit die it uses. Be sure
+                  to put the correct size for an accurate HP Die Expression.</p>
+                </div>
+                <div class="modal-footer">
+                  <h2></h2>
+                </div>
+              </div>
+
+            </div>
+            <div class="row-vertical">
+              <div class="row" style="justify-content:space-between">
+                <div class="box-head1" style="width:45%">
+                  <h2>Starting Ability Scores</h2>
+                </div>
+                <div class="box-head2" style="width:45%">
+                  <h2>Scaled Ability Scores</h2>
+                </div>
+              </div>
+              <div class="row" style="justify-content:space-between">
+                <div class="row" style="width:45%">
+                  <div class="row">
+                    <div class="box-left-condensed">
+                      <span>STR</span>
+                    </div>
+                    <div class="box-mid-condensed">
+                      <input name="STR" type="number" step="1" min="1" max="30" placeholder="10"
+                      {% if STR != 0 %}
+                        value={{STR}}
+                      {% endif %}
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="box-left-condensed">
+                      <span>INT</span>
+                    </div>
+                    <div class="box-mid-condensed">
+                      <input name="INT" type="number" step="1" min="1" max="30" placeholder="10"
+                      {% if INT != 0 %}
+                        value={{INT}}
+                      {% endif %}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <span style="border:1px solid red"></span>
+                <div class="row" style="width:45%">
+                  <div class="row">
+                    <div class="box-left-condensed">
+                      <span>STR</span>
+                    </div>
+                    <div class="box-right-condensed">
+                      {% if outputs[6] == 0 %}
+                        <span> - </span>
+                      {% else %}
+                        <span>{{ outputs[6] }} ({{ outputs[12] }})</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="box-left-condensed">
+                      <span>INT</span>
+                    </div>
+                    <div class="box-right-condensed">
+                      {% if outputs[9] == 0 %}
+                        <span> - </span>
+                      {% else %}
+                        <span>{{ outputs[9] }} ({{ outputs[15] }})</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="justify-content:space-between">
+                <div class="row" style="width:45%">
+                  <div class="row">
+                    <div class="box-left-condensed">
+                      <span>DEX</span>
+                    </div>
+                    <div class="box-mid-condensed">
+                      <input name="DEX" type="number" step="1" min="1" max="30" placeholder="10"
+                      {% if DEX != 0 %}
+                        value={{DEX}}
+                      {% endif %}
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="box-left-condensed">
+                      <span>WIS</span>
+                    </div>
+                    <div class="box-mid-condensed">
+                      <input name="WIS" type="number" step="1" min="1" max="30" placeholder="10"
+                      {% if WIS != 0 %}
+                        value={{WIS}}
+                      {% endif %}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <span style="border:1px solid red"></span>
+                <div class="row" style="width:45%">
+                  <div class="row">
+                    <div class="box-left-condensed">
+                      <span>DEX</span>
+                    </div>
+                    <div class="box-right-condensed">
+                      {% if outputs[7] == 0 %}
+                        <span> - </span>
+                      {% else %}
+                        <span>{{ outputs[7] }} ({{ outputs[13] }})</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="box-left-condensed">
+                      <span>WIS</span>
+                    </div>
+                    <div class="box-right-condensed">
+                      {% if outputs[10] == 0 %}
+                        <span> - </span>
+                      {% else %}
+                        <span>{{ outputs[10] }} ({{ outputs[16] }})</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row" style="justify-content:space-between">
+                <div class="row" style="width:45%">
+                  <div class="row">
+                    <div class="box-left-condensed">
+                      <span>CON</span>
+                    </div>
+                    <div class="box-mid-condensed">
+                      <input name="CON" type="number" step="1" min="1" max="30" placeholder="10"
+                      {% if CON != 0 %}
+                        value={{CON}}
+                      {% endif %}
+                      />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="box-left-condensed">
+                      <span>CHA</span>
+                    </div>
+                    <div class="box-mid-condensed">
+                      <input name="CHA" type="number" step="1" min="1" max="30" placeholder="10"
+                      {% if CHA != 0 %}
+                        value={{CHA}}
+                      {% endif %}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <span style="border:1px solid red"></span>
+                <div class="row" style="width:45%">
+                  <div class="row">
+                    <div class="box-left-condensed">
+                      <span>CON</span>
+                    </div>
+                    <div class="box-right-condensed">
+                      {% if outputs[8] == 0 %}
+                        <span> - </span>
+                      {% else %}
+                        <span>{{ outputs[8] }} ({{ outputs[14] }})</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="box-left-condensed">
+                      <span>CHA</span>
+                    </div>
+                    <div class="box-right-condensed">
+                      {% if outputs[11] == 0 %}
+                        <span> - </span>
+                      {% else %}
+                        <span>{{ outputs[11] }} ({{ outputs[17] }})</span>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="justify-content:space-between">
+                <div class="box-head1" style="width:50%">
+                  <h2>Monster Size</h2>
+                </div>
+                <div class="box-head2" style="width:50%">
+                  <h2>HP Die Expression</h2>
+                </div>
+              </div>
+            <div class="row">
+              <div class="row" style="width:50%">
+                <select id="size" name="size">
+                  <option value="2.5" {% if size == "2.5" %} selected {% endif %}>Tiny
+                  <option value="3.5" {% if size == "3.5" %} selected {% endif %}>Small
+                  <option value="4.5" {% if size == "4.5" %} selected {% endif %}>Medium
+                  <option value="5.5" {% if size == "5.5" %} selected {% endif %}>Large
+                  <option value="6.5" {% if size == "6.5" %} selected {% endif %}>Huge
+                  <option value="10.5" {% if size == "10.5" %} selected {% endif %}>Gargantuan
+                </select>
+              </div>
+              <div class="row" style="width:50%">
+                  {% if outputs[18] == 0 %}
+                    <span> - </span>
+                  {% else %}
+                    <span>{{ outputs[18] }} ({{ outputs[19] }} {{ outputs[20] }})</span>
+                  {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Scale Button Row -->
+        <br>
+        <div class="row">
+          <div class="button-scale" align="center">
+            <input type="submit" class="scale" value="Scale">
+          </div>
+        </div>
+        <br>
+        <hr color="#d60000">
+      </form>
+      </div>
+
+
+    <script>
+
+      // Get the modal
+      var modal = document.getElementById("myModal");
+
+      // Get the button that opens the modal
+      var btn = document.getElementById("myBtn");
+
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+
+      // When the user clicks the button, open the modal
+      btn.onclick = function() {
+        modal.style.display = "block";
+      }
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+
+      // Javascript for animating the collapsible row
+      if(sessionStorage.getItem("clicked") === null) {
+          sessionStorage.setItem("clicked", "false"); // for the first time
+      }
+      var coll = document.getElementsByClassName("collapsible");
+      var i;
+
+      for (i = 0; i < coll.length; i++) {
+        if (sessionStorage.getItem("clicked") == "true") {
+            var content = coll[i].nextElementSibling;
+            content.style.maxHeight = content.scrollHeight + "px";
+        }
+
+        coll[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.maxHeight){
+            content.style.maxHeight = null;
+            sessionStorage.setItem("clicked", "false");
+          } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            sessionStorage.setItem("clicked", "true");
+          }
+        });
+      }
+
+    </script>
+  </body>
+
+</html>
