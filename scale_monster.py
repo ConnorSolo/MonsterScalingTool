@@ -179,25 +179,41 @@ def scale_stats(cr1, cr2, pb, ac, hp, ab, dpr, dc, STR, DEX, CON, INT, WIS, CHA,
     stats_new.extend(abil_scores_new)
     stats_new.insert(8, con_new)
     stats_new.extend(mods_new)
-    stats_new.insert(14, "+" + str(get_mod(con_new)))
+    if get_mod(con_new) >= 0:
+        stats_new.insert(14, "+" + str(get_mod(con_new)))
+    else:
+        stats_new.insert(14, "-" + str(abs(get_mod(con_new))))
 
     # Iterate through possible HP die expressions until we find one that is
     # as close as possible to new value, given their size and CON scores.
-    # I don't like the way this works currently. It could be more elegant?
-    formula_list = []
-    formula_sum_list = []
-    i = 1
-    while i < 40:
-        hit_die = str(i) + "d" + str(int((size*2)-1)) + " +"
-        mod_sum = i*get_mod(con_new)
-        formula_list.append([hit_die, mod_sum])
-        formula_sum_list.append(round((i*size) + mod_sum))
-        i+=1
+    count = 1
+    exit = False
+    while exit is False:
+        next_up = count + 1
 
-    formula_index = get_closest(formula_sum_list, hp_new)
+        mod_sum = count*get_mod(con_new)
+
+        mod_sum_next = next_up*get_mod(con_new)
+
+        form_sum = round((count*size) + mod_sum)
+        form_sum_next = round((next_up*size) + mod_sum_next)
+        if abs(hp_new - form_sum) <= abs(hp_new - form_sum_next):
+            hit_die = str(count) + "d" + str(int((size*2)-1))
+            if get_mod(con_new) > 0:
+                hit_die = hit_die + " + "
+            elif get_mod(con_new) < 0:
+                hit_die = hit_die + " - "
+                mod_sum = abs(mod_sum)
+            else:
+                mod_sum = ""
+            formula = [hit_die, mod_sum]
+            exit = True
+        else:
+           count += 1
+
     try:
-        stats_new.append(formula_sum_list[formula_index])
-        stats_new.extend(formula_list[formula_index])
+        stats_new.append(form_sum)
+        stats_new.extend(formula)
     except:
         stats_new.append("")
 
