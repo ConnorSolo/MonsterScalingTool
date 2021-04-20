@@ -15,77 +15,13 @@ class Stats:
 
 
 def get_mod(score):
-    mod = None
-    if score == 1:
-        mod = -5
-    elif score <= 3:
-        mod = -4
-    elif score <= 5:
-        mod = -3
-    elif score <= 7:
-        mod = -2
-    elif score <= 9:
-        mod = -1
-    elif score <= 11:
-        mod = 0
-    elif score <= 13:
-        mod = 1
-    elif score <= 15:
-        mod = 2
-    elif score <= 17:
-        mod = 3
-    elif score <= 19:
-        mod = 4
-    elif score <= 21:
-        mod = 5
-    elif score <= 23:
-        mod = 6
-    elif score <= 25:
-        mod = 7
-    elif score <= 27:
-        mod = 8
-    elif score <= 29:
-        mod = 9
-    elif score <= 30:
-        mod = 10
-    return mod
+    return (score - 10) // 2;
 
 
 def get_score(mod):
-    score = None
     if mod == -5:
-        score = 1
-    elif mod == -4:
-        score = 2
-    elif mod == -3:
-        score = 4
-    elif mod == -2:
-        score = 6
-    elif mod == -1:
-        score = 8
-    elif mod == 0:
-        score = 10
-    elif mod == 1:
-        score = 12
-    elif mod == 2:
-        score = 14
-    elif mod == 3:
-        score = 16
-    elif mod == 4:
-        score = 18
-    elif mod == 5:
-        score = 20
-    elif mod == 6:
-        score = 22
-    elif mod == 7:
-        score = 24
-    elif mod == 8:
-        score = 26
-    elif mod == 9:
-        score = 28
-    elif mod == 10:
-        score = 30
-    return score
+        return 1
+    return mod*2 + 10
 
 
 def get_closest(myList, myNumber):
@@ -243,7 +179,7 @@ def scale_stats(cr1, cr2, pb, ac, hp, ab, dpr, dc, STR, DEX, CON, INT, WIS, CHA,
     stats_new.extend(abil_scores_new)
     stats_new.insert(8, con_new)
     stats_new.extend(mods_new)
-    stats_new.insert(14, get_mod(con_new))
+    stats_new.insert(14, "+" + str(get_mod(con_new)))
 
     # Iterate through possible HP die expressions until we find one that is
     # as close as possible to new value, given their size and CON scores.
